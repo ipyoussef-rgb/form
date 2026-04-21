@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["dom", "dom.iterable", "es2022"],
+    "strict": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@repo/config": ["packages/config/src/index.ts"],
+      "@repo/shared": ["packages/shared/src/index.ts"],
+      "@repo/kobil": ["packages/kobil/src/index.ts"],
+      "@repo/pdf": ["packages/pdf/src/index.ts"],
+      "@repo/fax": ["packages/fax/src/index.ts"]
+    }
+  }
+}
