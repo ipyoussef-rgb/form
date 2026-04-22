@@ -12,5 +12,6 @@ export default async function Login() {
   c.set("app2_state", state, { httpOnly: true, secure: true, sameSite: "lax", path: "/" });
   c.set("app2_verifier", verifier, { httpOnly: true, secure: true, sameSite: "lax", path: "/" });
   c.set("app2_nonce", nonce, { httpOnly: true, secure: true, sameSite: "lax", path: "/" });
-  redirect(await identity.buildAuthorizeUrl({ app: "app2", state, nonce, codeChallenge: challenge }));
+  const url = await identity.buildAuthorizeUrl({ app: "app2", state, nonce, codeChallenge: challenge });
+  redirect(url as never);
 }

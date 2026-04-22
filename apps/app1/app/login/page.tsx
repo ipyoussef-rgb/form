@@ -13,5 +13,5 @@ export default async function Login() {
   cookieStore.set("app1_verifier", verifier, { httpOnly: true, secure: true, sameSite: "lax", path: "/" });
   cookieStore.set("app1_nonce", nonce, { httpOnly: true, secure: true, sameSite: "lax", path: "/" });
   const url = await identity.buildAuthorizeUrl({ app: "app1", state, nonce, codeChallenge: challenge });
-  redirect(url);
+  redirect(url as never);
 }
