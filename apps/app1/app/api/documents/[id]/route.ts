@@ -9,6 +9,6 @@ export async function GET(_: Request, { params }: { params: Promise<{ id: string
   const { id } = await params;
   const bytes = globalThis.__pdfStore?.get(id);
   if (!bytes) return NextResponse.json({ error: "not found" }, { status: 404 });
-  const body = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
+  const body = new Blob([bytes], { type: "application/pdf" });
   return new NextResponse(body, { headers: { "content-type": "application/pdf" } });
 }
