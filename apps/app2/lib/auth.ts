@@ -1,10 +1,12 @@
 import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
 import { createHash, randomBytes } from "node:crypto";
-import { readEnv } from "@repo/config";
 
-const env = readEnv();
-const key = new TextEncoder().encode(env.AUTH_SECRET);
+const getKey = () => {
+  const secret = process.env.AUTH_SECRET;
+  if (!secret) throw new Error("AUTH_SECRET is required");
+  return new TextEncoder().encode(secret);
+};
 
 export const createPkce = () => {
   const verifier = randomBytes(32).toString("base64url");
@@ -13,7 +15,7 @@ export const createPkce = () => {
 };
 
 export async function createSession(payload: Record<string, unknown>) {
-  return new SignJWT(payload).setProtectedHeader({ alg: "HS256" }).setExpirationTime("1h").sign(key);
+  return new SignJWT(payload).setProtectedHeader({ alg: "HS256" }).setExpirationTime("1h").sign(getKey());
 }
 
 export async function readSession() {
@@ -21,7 +23,7 @@ export async function readSession() {
   const token = store.get("app2_session")?.value;
   if (!token) return null;
   try {
-    return (await jwtVerify(token, key)).payload;
+    return (await jwtVerify(token, getKey())).payload;
   } catch {
     return null;
   }

@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { redirect } from "next/navigation";
 import { OidcIdentityService } from "@repo/kobil";
 import { createPkce } from "../../lib/auth";
